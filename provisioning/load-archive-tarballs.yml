@@ -1,0 +1,29 @@
+- hosts: test
+
+  vars:
+    repo_dir: "/opt/repos"
+    vo_venv: "/opt/venvs/voeventdb"
+    voeventdb_owner: "voeventdb_owner"
+    voeventdb_dbname: "voeventdb"
+
+
+  tasks:
+    - name: Clone voevent-testdata repo
+      git:
+        repo: https://github.com/timstaley/voevent-testdata.git
+        dest: "{{ repo_dir }}/voevent-testdata"
+
+
+
+    - name: Load up the tarballs
+      shell: >
+            . {{ vo_venv }}/bin/activate &&
+            for f in $(ls *.tar.bz2); do
+              voeventdb_ingest_tarball.py -c -d {{ voeventdb_dbname }} $f \
+                > /tmp/voeventdb_ingest_$(date +%F-%H-%M).log 2>&1
+            done
+      args:
+        chdir: "{{ repo_dir }}/voevent-testdata"
+      become: yes
+      become_user: "{{ voeventdb_owner }}"
+      changed_when: False
