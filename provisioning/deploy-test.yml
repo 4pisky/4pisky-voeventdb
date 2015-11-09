@@ -6,14 +6,17 @@
     # This should probably be separate (only write permissions) to the db-owner,
     # that's something for the To Do list.
     comet_voeventdb_user: "voeventdb_owner"
+    comet_voeventdb_group: "voeventdb"
 
   roles:
     - timstaley.base
     - { role: timstaley.voeventdb,
         voeventdb_domain: "localhost",
         voeventdb_owner: "{{ comet_voeventdb_user }}",
+        voeventdb_group: "{{ comet_voeventdb_group }}",
         }
     - {
         role: timstaley.comet,
         comet_serve_user: "{{ comet_voeventdb_user }}",
+        comet_user_group: "{{ comet_voeventdb_group }}",
       }
