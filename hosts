@@ -1,0 +1,6 @@
+# Ansible inventory
+
+
+[voeventdb]
+voeventdb-aws  ansible_ssh_host=awstest
+

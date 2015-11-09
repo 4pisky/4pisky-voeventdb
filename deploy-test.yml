@@ -1,0 +1,19 @@
+- hosts: test
+
+  vars:
+    #Define a user that will be used to run Comet,
+    # and has write access to the voeventdb.
+    # This should probably be separate (only write permissions) to the db-owner,
+    # that's something for the To Do list.
+    comet_voeventdb_user: "voeventdb_owner"
+
+  roles:
+    - timstaley.base
+    - { role: timstaley.voeventdb,
+        voeventdb_domain: "localhost",
+        voeventdb_owner: "{{ comet_voeventdb_user }}",
+        }
+    - {
+        role: timstaley.comet,
+        comet_serve_user: "{{ comet_voeventdb_user }}",
+      }
