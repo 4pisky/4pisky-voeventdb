@@ -1,0 +1,25 @@
+#!/bin/bash
+
+source {{ shared_venv }}/bin/activate
+
+WORKING_DIR=/home/{{ comet_serve_user }}/working_dir
+IVORN=voeventdb.4pisky.org/subscribe-only
+LOGFILE=$WORKING_DIR/log/$(date +%F-%H-%M).txt
+EVENT_DB_DIR=$WORKING_DIR/db
+REMOTE=voevent.4pisky.org:8099
+
+export VOEVENTDB_DBNAME={{ voeventdb_dbname }}
+DB_HANDLER=voeventdb_ingest_packet.py
+
+mkdir -p $(dirname $LOGFILE)
+mkdir -p $EVENT_DB_DIR
+cd $WORKING_DIR
+
+
+twistd -l $LOGFILE -n comet \
+    --verbose \
+    --eventdb=$EVENT_DB_DIR --local-ivo=ivo://$IVORN \
+    --remote=$REMOTE \
+    --cmd=$DB_HANDLER
+
+

@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 5000, host: 5050
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "../provisioning/deploy-test.yml"
+    ansible.playbook = "../provisioning/deploy.yml"
     ansible.verbose = "vv"
     ansible.groups = {
       "test" => ["fps_voeventdb_testvm"],

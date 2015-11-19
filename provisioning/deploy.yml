@@ -1,0 +1,30 @@
+- hosts:
+#    - voeventdb
+    - test
+
+  vars:
+    #Define a user that will be used to run Comet,
+    # and has write access to the voeventdb.
+    # This should probably be separate (only write permissions) to the db-owner,
+    # that's something for the To Do list.
+    comet_voeventdb_user: "voeventdb_rw"
+    shared_venv: "/opt/venvs/voevent_deploy"
+    shared_deploy_user: "deploy"
+    voeventdb_dbname: "voeventdb"
+
+  roles:
+    - timstaley.base
+    - { role: timstaley.voeventdb,
+        voeventdb_domain: "localhost",
+        voeventdb_rw_user: "{{ comet_voeventdb_user }}",
+        voeventdb_venv: "{{ shared_venv }}",
+        voeventdb_deploy_user: "{{ shared_deploy_user }}",
+        rest_enabled: true
+        }
+    - {
+        role: timstaley.comet,
+        comet_serve_user: "{{ comet_voeventdb_user }}",
+        comet_venv: "{{ shared_venv }}",
+        comet_deploy_user: "{{ shared_deploy_user }}",
+        comet_invoke_template: templates/comet-with-dbhandler.sh.j2
+      }
