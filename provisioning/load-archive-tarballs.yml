@@ -1,9 +1,12 @@
-- hosts: test
+- hosts:
+#    - voeventdb
+    - test
 
   vars:
     repo_dir: "/opt/repos"
-    vo_venv: "/opt/venvs/voeventdb"
-    voeventdb_owner: "voeventdb_owner"
+    comet_voeventdb_user: "voeventdb_rw"
+    shared_venv: "/opt/venvs/voevent_deploy"
+    shared_deploy_user: "deploy"
     voeventdb_dbname: "voeventdb"
 
 
@@ -12,12 +15,12 @@
       git:
         repo: https://github.com/timstaley/voevent-testdata.git
         dest: "{{ repo_dir }}/voevent-testdata"
-
-
+      become: yes
+      become_user: "{{ shared_deploy_user }}"
 
     - name: Load up the tarballs
       shell: >
-            . {{ vo_venv }}/bin/activate &&
+            . {{ shared_venv }}/bin/activate &&
             for f in $(ls *.tar.bz2); do
               voeventdb_ingest_tarball.py -c -d {{ voeventdb_dbname }} $f \
                 > /tmp/voeventdb_ingest_$(date +%F-%H-%M).log 2>&1
@@ -25,5 +28,5 @@
       args:
         chdir: "{{ repo_dir }}/voevent-testdata"
       become: yes
-      become_user: "{{ voeventdb_owner }}"
+      become_user: "{{ comet_voeventdb_user }}"
       changed_when: False
