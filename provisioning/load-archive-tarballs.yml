@@ -15,6 +15,7 @@
       git:
         repo: https://github.com/timstaley/voevent-testdata.git
         dest: "{{ repo_dir }}/voevent-testdata"
+        version: consolidated
       become: yes
       become_user: "{{ shared_deploy_user }}"
 
@@ -22,7 +23,7 @@
       shell: >
             . {{ shared_venv }}/bin/activate &&
             for f in $(ls *.tar.bz2); do
-              voeventdb_ingest_tarball.py -c -d {{ voeventdb_dbname }} $f \
+              voeventdb_ingest_tarball.py  -d {{ voeventdb_dbname }} $f \
                 > /tmp/voeventdb_ingest_$(date +%F-%H-%M).log 2>&1
             done
       args:
