@@ -19,7 +19,7 @@
         voeventdb_rw_user: "{{ comet_voeventdb_user }}",
         voeventdb_venv: "{{ shared_venv }}",
         voeventdb_deploy_user: "{{ shared_deploy_user }}",
-        rest_enabled: true
+        voeventdb_rest_enabled: true
         }
     - {
         role: timstaley.comet,
