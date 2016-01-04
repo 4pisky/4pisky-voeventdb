@@ -15,7 +15,7 @@
   roles:
     - timstaley.base
     - { role: timstaley.voeventdb,
-        voeventdb_version: "1.0.0",
+        voeventdb_version: "1.0.3",
         voeventdb_domain: "localhost",
         voeventdb_rw_user: "{{ comet_voeventdb_user }}",
         voeventdb_venv: "{{ shared_venv }}",
