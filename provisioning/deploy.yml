@@ -15,7 +15,7 @@
   roles:
     - timstaley.base
     - { role: timstaley.voeventdb,
-        voeventdb_version: "1.0.3",
+        voeventdb_version: "1.0.5",
         voeventdb_domain: "localhost",
         voeventdb_rw_user: "{{ comet_voeventdb_user }}",
         voeventdb_venv: "{{ shared_venv }}",
@@ -27,5 +27,6 @@
         comet_serve_user: "{{ comet_voeventdb_user }}",
         comet_venv: "{{ shared_venv }}",
         comet_deploy_user: "{{ shared_deploy_user }}",
-        comet_invoke_template: templates/comet-with-dbhandler.sh.j2
+        comet_invoke_template: templates/comet-with-dbhandler.sh.j2,
+        comet_use_fork: True
       }
