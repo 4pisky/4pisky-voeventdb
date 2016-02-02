@@ -27,6 +27,5 @@
         comet_serve_user: "{{ comet_voeventdb_user }}",
         comet_venv: "{{ shared_venv }}",
         comet_deploy_user: "{{ shared_deploy_user }}",
-        comet_invoke_template: templates/comet-with-dbhandler.sh.j2,
-        comet_use_fork: True
+        comet_invoke_template: templates/comet-with-dbhandler.sh.j2
       }
