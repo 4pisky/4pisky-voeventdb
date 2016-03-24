@@ -11,18 +11,33 @@ REMOTE_FOURPISKY=voevent.4pisky.org:8099
 REMOTE_GCN=68.169.57.253:8099
 
 export VOEVENTDB_DBNAME={{ voeventdb_dbname }}
-DB_HANDLER=voeventdb_ingest_packet.py
+COMET_PLUGIN_DIR="{{ voeventdb_repo_path }}/comet_plugin"
+export PYTHONPATH=${COMET_PLUGIN_DIR}${PYTHONPATH:+:${PYTHONPATH}}
+
 
 mkdir -p $(dirname $LOGFILE)
 mkdir -p $EVENT_DB_DIR
 cd $WORKING_DIR
 
 
+BROKER_COMMAND="\
 twistd -l $LOGFILE -n comet \
     --verbose \
     --eventdb=$EVENT_DB_DIR --local-ivo=ivo://$IVORN \
     --remote=$REMOTE_FOURPISKY \
     --remote=$REMOTE_GCN \
-    --cmd=$DB_HANDLER
+    --voeventdb-insert \
+"
 
+
+{% if ansible_virtualization_type is defined %}
+    {% if ansible_virtualization_type == "virtualbox" %}
+# Listen for a comet-instance on the virtualbox host
+# (for load-testing with vagrant)
+VIRTUALBOX_HOST=$(netstat -r | grep 'default' | awk '{print $2}')
+BROKER_COMMAND="${BROKER_COMMAND} --remote=$VIRTUALBOX_HOST:8099"
+    {% endif %}
+{% endif %}
+
+$BROKER_COMMAND
 
