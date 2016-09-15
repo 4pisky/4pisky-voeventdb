@@ -16,7 +16,7 @@
     - timstaley.base
     - { role: kamaln7.swapfile, swapfile_size: 1GB, become: yes }
     - { role: timstaley.voeventdb,
-        voeventdb_version: "1.1.1",
+        voeventdb_version: "1.2.0",
         voeventdb_domain: "localhost",
         voeventdb_rw_user: "{{ comet_voeventdb_user }}",
         voeventdb_venv: "{{ shared_venv }}",
