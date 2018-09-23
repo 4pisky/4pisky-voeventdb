@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
   config.vm.define "fps_voeventdb_testvm" do |fps_voeventdb_testvm| end
 
   config.vm.provider "virtualbox" do |v|
@@ -18,12 +18,9 @@ Vagrant.configure(2) do |config|
     ansible.verbose = "vv"
     ansible.groups = {
       "test" => ["fps_voeventdb_testvm"],
+      "test:vars" => {"ansible_python_interpreter" => "/usr/bin/python3"}
       }
   end
- 
-  if Vagrant.has_plugin?("vagrant-cachier")
-    # Configure cached packages to be shared between instances of the same base box.
-    # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
-    config.cache.scope = :box
-  end
+
 end
+

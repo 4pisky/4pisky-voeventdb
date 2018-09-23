@@ -1,0 +1,9 @@
+# Ansible inventory
+
+
+[voeventdb]
+do-voeventdb2
+
+[voeventdb_new]
+do-voeventdb1
+

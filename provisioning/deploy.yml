@@ -1,5 +1,6 @@
 - hosts:
 #    - voeventdb
+#    - voeventdb_new
     - test
 
   vars:
@@ -14,9 +15,9 @@
 
   roles:
     - timstaley.base
-    - { role: kamaln7.swapfile, swapfile_size: 1GB, become: yes }
+    - { role: tersmitten.swapfile, swapfile_size: 1GB, become: yes }
     - { role: timstaley.voeventdb,
-        voeventdb_version: "1.3.2",
+        voeventdb_version: "1.3.4",
         voeventdb_domain: "localhost",
         voeventdb_rw_user: "{{ comet_voeventdb_user }}",
         voeventdb_venv: "{{ shared_venv }}",
