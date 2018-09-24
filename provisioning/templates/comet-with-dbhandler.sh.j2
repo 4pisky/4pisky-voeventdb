@@ -24,9 +24,9 @@ BROKER_COMMAND="\
 twistd -l $LOGFILE -n comet \
     --verbose \
     --eventdb=$EVENT_DB_DIR --local-ivo=ivo://$IVORN \
+    --voeventdb-insert \
     --remote=$REMOTE_FOURPISKY \
     --remote=$REMOTE_GCN \
-    --voeventdb-insert \
 "
 
 

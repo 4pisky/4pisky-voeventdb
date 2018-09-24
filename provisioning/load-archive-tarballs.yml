@@ -13,9 +13,9 @@
   tasks:
     - name: Clone voevent-testdata repo
       git:
-        repo: https://github.com/timstaley/voevent-testdata.git
+        repo: http://github.com/timstaley/voevent-tarballs.git
         dest: "{{ repo_dir }}/voevent-testdata"
-        version: consolidated
+        version: master
       become: yes
       become_user: "{{ shared_deploy_user }}"
 

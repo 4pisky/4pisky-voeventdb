@@ -1,9 +1,8 @@
 # Ansible inventory
 
-
-[voeventdb]
+[voeventdb_new]
 do-voeventdb2
 
-[voeventdb_new]
-do-voeventdb1
 
+[voeventdb_new:vars]
+ansible_python_interpreter=/usr/bin/python3

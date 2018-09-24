@@ -15,7 +15,7 @@
 
   roles:
     - timstaley.base
-    - { role: tersmitten.swapfile, swapfile_size: 1GB, become: yes }
+    - { role: oefenweb.swapfile, swapfile_size: 1GB, become: yes }
     - { role: timstaley.voeventdb,
         voeventdb_version: "1.3.4",
         voeventdb_domain: "localhost",
