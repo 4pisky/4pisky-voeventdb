@@ -9,6 +9,7 @@ EVENT_DB_DIR=$WORKING_DIR/db
 
 REMOTE_FOURPISKY=voevent.4pisky.org:8099
 REMOTE_GCN=68.169.57.253:8099
+REMOTE_UTMOST=utmost.usyd.edu.au:11200
 
 export VOEVENTDB_DBNAME={{ voeventdb_dbname }}
 COMET_PLUGIN_DIR="{{ voeventdb_repo_path }}/comet_plugin"
@@ -25,8 +26,9 @@ twistd -l $LOGFILE -n comet \
     --verbose \
     --eventdb=$EVENT_DB_DIR --local-ivo=ivo://$IVORN \
     --voeventdb-insert \
-    --remote=$REMOTE_FOURPISKY \
-    --remote=$REMOTE_GCN \
+    --remote=$REMOTE_UTMOST \
+    --broadcast \
+
 "
 
 

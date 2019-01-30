@@ -1,7 +1,5 @@
 - hosts:
-#    - voeventdb
-#    - voeventdb_new
-    - test
+    - do-voeventdb-staging
 
   vars:
     #Define a user that will be used to run Comet,
